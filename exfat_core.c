@@ -929,6 +929,9 @@ s32 ffsMoveFile(struct inode *old_parent_inode, FILE_ID_T *fid, struct inode *ne
 	}
 
 	/* check the validity of directory name in the given new pathname */
+	if (strlen(new_path) >= MAX_NAME_LENGTH)
++		return FFS_NAMETOOLONG;
+
 	ret = resolve_path(new_parent_inode, new_path, &newdir, &uni_name);
 	if (ret)
 		return ret;
