@@ -2124,6 +2124,9 @@ static int exfat_statfs(struct dentry *dentry, struct kstatfs *buf)
 static int exfat_remount(struct super_block *sb, int *flags, char *data)
 {
 	*flags |= MS_NODIRATIME;
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,16,00)
+	sync_filesystem(sb);
+#endif
 	return 0;
 }
 
