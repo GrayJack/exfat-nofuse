@@ -930,7 +930,7 @@ s32 ffsMoveFile(struct inode *old_parent_inode, FILE_ID_T *fid, struct inode *ne
 
 	/* check the validity of directory name in the given new pathname */
 	if (strlen(new_path) >= MAX_NAME_LENGTH)
-+		return FFS_NAMETOOLONG;
+		return FFS_NAMETOOLONG;
 
 	ret = resolve_path(new_parent_inode, new_path, &newdir, &uni_name);
 	if (ret)
@@ -2110,8 +2110,8 @@ s32 exfat_count_used_clusters(struct super_block *sb)
 		}
 	}
 
-+	if ((p_fs->num_clusters - 2) < (s32)count)
-+		count = p_fs->num_clusters - 2;
+	if ((p_fs->num_clusters - 2) < (s32)count)
+		count = p_fs->num_clusters - 2;
 
 	return count;
 } /* end of exfat_count_used_clusters */
