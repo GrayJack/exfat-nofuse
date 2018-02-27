@@ -2107,6 +2107,9 @@ s32 exfat_count_used_clusters(struct super_block *sb)
 		}
 	}
 
++	if ((p_fs->num_clusters - 2) < (s32)count)
++		count = p_fs->num_clusters - 2;
+
 	return count;
 } /* end of exfat_count_used_clusters */
 
