@@ -128,16 +128,18 @@ static time_t accum_days_in_year[] = {
 
 TIMESTAMP_T *tm_current(TIMESTAMP_T *tp)
 {
-	struct timespec ts;
 	time_t second, day, leap_day, month, year;
 
 #if LINUX_VERSION_CODE < KERNEL_VERSION(4,8,0)
+	struct timespec ts;
 	ts = CURRENT_TIME_SEC;
+	second = ts.tv_sec;
 #else
-	ktime_get_real_ts(&ts);
+	// ktime_get_real_seconds() is available since 2013~2014, 4.8 is from 2016
+	// so any version above that have this function
+	second = ktime_get_real_seconds();
 #endif
 
-	second = ts.tv_sec;
 	second -= sys_tz.tz_minuteswest * SECS_PER_MIN;
 
 	/* Jan 1 GMT 00:00:00 1980. But what about another time zone? */
